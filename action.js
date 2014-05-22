@@ -26,32 +26,16 @@ var strategy = 'peasants';
 
 var base = this;
 
-this.getClosestItem = function(items, unit) {
-    var minDist = 9000;
-    var minItem = null;
-    
-    for (var i = 0; i < items.length; i++) {
-        var dist = items[i].pos.distance(unit.pos);
-        if (minDist > dist ) {
-            minDist = dist;
-            minItem = items[i];
-        }
-    }
-    
-    return minItem;
-};
-
 /////// 1. Command peasants to grab coins and gems. ///////
 // You can only command peasants, not fighting units.
 // You win by gathering gold more efficiently to make a larger army.
 // Click on a unit to see its API.
 var peasants = base.getByType('peasant');
 for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
-    var peasant = peasants[peasantIndex];
-    
-    var item = this.getClosestItem(this.getItems(), peasant);
+	var item = peasants[peasantIndex].getNearest(this.getItems());
+
     if (item)
-        base.command(peasant, 'move', item.pos);
+        base.command(peasants[peasantIndex], 'move', item.pos);
 }
 
 
