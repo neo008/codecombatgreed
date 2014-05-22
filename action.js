@@ -59,7 +59,7 @@ for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
 // Peasants can gather gold; other units auto-attack the enemy base.
 // You can only build one unit per frame, if you have enough gold.
 var type;
-if (base.built.length< 3)
+if (base.built.length< 2)
     type = 'peasant';
 else
     type = 'knight';
