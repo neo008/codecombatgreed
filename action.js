@@ -3,14 +3,26 @@
 // Run over 4000 statements per call and chooseAction will run less often.
 // Check out the green Guide button at the top for more info.
 
-// Strategies
-// * reduce number of statments executed
-// * partitionate gold collecting
-// * race for gold that enenmy is collecting
-// * do not build unit until other attacks
-// * build unit with stratgies
-// ** are units chocking?
-//
+/**
+ * Major considerations
+ * - reduce number of statments executed
+ *
+ * Unit building with stratgies
+ * - do not build unit until other attacks. but we cannot wait too long cost we only have 180 seconds
+ * - are units chocking? build unit with area effect
+ * - do we have enough muscles in the frontline?
+ * - go for captain?
+ *
+ * Collect gold effectively/efficiently
+ * - partitionate gold collecting
+ * - race for gold that enenmy is collecting?
+ * 
+ * List of game strategies
+ * - peasants - build peasants only. this strategy should not be used when we are low on health
+ * - defensive
+ * - counterAttack
+ */
+var strategy = 'peasants';
 
 var base = this;
 
@@ -19,17 +31,15 @@ this.getClosestItem = function(items, unit) {
     var minItem = null;
     
     for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        var dist = item.pos.distance(unit.pos);
+        var dist = items[i].pos.distance(unit.pos);
         if (minDist > dist ) {
             minDist = dist;
-            minItem = item;
+            minItem = items[i];
         }
     }
     
     return minItem;
 };
-
 
 /////// 1. Command peasants to grab coins and gems. ///////
 // You can only command peasants, not fighting units.
