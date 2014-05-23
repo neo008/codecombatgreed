@@ -3,61 +3,61 @@
 // Run over 4000 statements per call and chooseAction will run less often.
 // Check out the green Guide button at the top for more info.
 
-/**
- * Major considerations
- * - reduce number of statments executed
- *
- * Unit building with stratgies
- * - do not build unit until other attacks. but we cannot wait too long cost we only have 180 seconds
- * - are units chocking? build unit with area effect
- * - do we have enough muscles in the frontline?
- * - go for captain?
- *
- * Collect gold effectively/efficiently
- * - partitionate gold collecting
- * - race for gold that enenmy is collecting?
- * 
- * List of game strategies
- * - peasants - build peasants only. this strategy should not be used when we are low on health
- * - defensive
- * - counterAttack
- */
-var strategy = 'peasants';
+if (this.warStarted === undefined) {
+    this.warStarted = false;
+}
 
-var base = this;
+// x:0-90 y:0-70
+// locations of predicted peasont
+var peasontBestLocations;
+switch (this.getByType("peasant").length) {
+    case 1: peasontBestLocations = [[45, 35]]; break;
+    case 2: peasontBestLocations = [[10,60], [80,10]]; break;
+    case 3: peasontBestLocations = [[10,60], [80,10], [45, 35]]; break;
+    case 4: peasontBestLocations = [[10,60], [80,10], [55, 45], [35, 30]]; break;
+    case 5: peasontBestLocations = [[10,60], [80,10], [60, 50], [45, 35], [30,25]]; break;     
+    case 6: peasontBestLocations = [[10,60], [80,10], [55, 60], [75, 40], [45,15], [15,35]]; break;
+}
 
-/////// 1. Command peasants to grab coins and gems. ///////
-// You can only command peasants, not fighting units.
-// You win by gathering gold more efficiently to make a larger army.
-// Click on a unit to see its API.
-var peasants = base.getByType('peasant');
+var peasants = this.getByType('peasant');
 for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
-	var item = peasants[peasantIndex].getNearest(this.getItems());
-
-    if (item)
-        base.command(peasants[peasantIndex], 'move', item.pos);
+    var peasant = peasants[peasantIndex];
+    var items = this.getItems();
+    // filter out items that are close to other peasants
+    // or
+    // increase vector of item by other peasant's vector
+    
+    
+    // decide whether he should go for higher value item
+    var item = peasant.getNearest(items);
+    if (item) {
+        this.command(peasant, 'move', item.pos);
+    }
 }
 
 
 /////// 2. Decide which unit to build this frame. ///////
 // Peasants can gather gold; other units auto-attack the enemy base.
 // You can only build one unit per frame, if you have enough gold.
+var enemies = this.getEnemies();
+var nearestEnemy = this.getNearest(enemies);
+var closestDist = this.pos.distance(nearestEnemy.pos);
+var enemyIsNear = closestDist < 10;
+var middleGame = this.now() > 60;
+var lastGame = this.now() > 120;
+var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
+
 var type;
-/**
- * should build at least 2 peasants in the game start
- */
-if (base.built.length< 2)
+if (!enemyIsNear && !middleGame) {
     type = 'peasant';
-else
-    type = 'knight';
-if (base.gold >= base.buildables[type].goldCost)
-    base.build(type);
+} else {
+    // save money for later
+    if (lastGame || enemyIsNear) {
+        type = units[Math.floor(Math.random() * units.length)];
+    }
+}
 
-
-// 'peasant': Peasants gather gold and do not fight.
-// 'soldier': Light melee unit.
-// 'knight': Heavy melee unit.
-// 'librarian': Support spellcaster.
-// 'griffin-rider': High-damage ranged attacker.
-// 'captain': Mythically expensive super melee unit.
-// See the buildables documentation below for costs and the guide for stats.
+if (type !== undefined) {
+    if (this.gold >= this.buildables[type].goldCost)
+        this.build(type);
+}
