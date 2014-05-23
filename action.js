@@ -17,7 +17,7 @@ switch (this.getByType("peasant").length) {
     case 4: peasontBestLocations = [[10,60], [80,10], [55, 45], [35, 30]]; break;
     case 5: peasontBestLocations = [[10,60], [80,10], [60, 50], [45, 35], [30,25]]; break;     
     case 6: peasontBestLocations = [[10,60], [80,10], [55, 60], [75, 40], [45,15], [15,35]]; break;
-}
+} // switch
 
 var peasants = this.getByType('peasant');
 for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
@@ -29,11 +29,13 @@ for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
     
     
     // decide whether he should go for higher value item
-    var item = peasant.getNearest(items);
-    if (item) {
-        this.command(peasant, 'move', item.pos);
-    }
-}
+	if (peasant !== undefined) {
+		var item = peasant.getNearest(items);
+		if (item) {
+			this.command(peasant, 'move', item.pos);
+		}
+	}
+} // for
 
 
 /////// 2. Decide which unit to build this frame. ///////
@@ -41,8 +43,13 @@ for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
 // You can only build one unit per frame, if you have enough gold.
 var enemies = this.getEnemies();
 var nearestEnemy = this.getNearest(enemies);
-var closestDist = this.pos.distance(nearestEnemy.pos);
-var enemyIsNear = closestDist < 10;
+var enemyIsNear = false;
+if (nearestEnemy !== undefined) {
+	var closestDist = this.pos.distance(nearestEnemy.pos);
+} else {
+	enemyIsNear = closestDist < 10;
+}
+
 var middleGame = this.now() > 60;
 var lastGame = this.now() > 120;
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
@@ -61,3 +68,4 @@ if (type !== undefined) {
     if (this.gold >= this.buildables[type].goldCost)
         this.build(type);
 }
+}; // function run ends
