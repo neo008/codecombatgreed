@@ -4,12 +4,17 @@ Base.prototype.run = function() {
 // Destroy the ogre base within 180 seconds.
 // Run over 4000 statements per call and chooseAction will run less often.
 // Check out the green Guide button at the top for more info.
+// All fighting units move at 5 m/s
+// The peasants/peons move at 10 m/s
+// Turns take 0.25 seconds
+// Resources spawn every turn seconds with probabilities of 5% gem (5), 10% gold (3), 20% copper (1), and 65% silver (2)
+// Coins spawn between (0, 0) and (85, 70)
+// map x:0-85 y:0-70, center x:43, 35
 
 if (this.warStarted === undefined) {
     this.warStarted = false;
 }
 
-// x:0-90 y:0-70
 // locations of predicted peasont
 var peasontBestLocations;
 switch (this.getByType("peasant").length) {
@@ -20,6 +25,8 @@ switch (this.getByType("peasant").length) {
     case 5: peasontBestLocations = [[10,60], [80,10], [60, 50], [45, 35], [30,25]]; break;     
     case 6: peasontBestLocations = [[10,60], [80,10], [55, 60], [75, 40], [45,15], [15,35]]; break;
 } // switch
+
+// fair distrubion - segementize items into 9 square. peasants get nearest item base on its square
 
 var peasants = this.getByType('peasant');
 for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
