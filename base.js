@@ -1,6 +1,7 @@
 function Buildable() {
 	this.goldCost = 10;
-
+	this.mapWidth = 85;
+	this.mapEhy:0-70
 }
 
 function Base() {
@@ -62,6 +63,12 @@ Base.prototype.spawnItems = function(num) {
 		this.items.push(item);
 	}
 };
+
+Base.prototype.distributeItems(items) {
+	for (var i = 0; i < items.length; i++) {
+		
+	}
+}
 
 function Item() {
 	this.value = 0;
