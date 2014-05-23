@@ -17,27 +17,27 @@ function Base() {
 
 Base.prototype.dump = function(){
 	console.log('testing');
-}
+};
 
 Base.prototype.getByType = function(type) {
 	return [];
-}
+};
 
 Base.prototype.getEnemies = function() {
 	return [];
-}
+};
 
 Base.prototype.getNearest = function() {
 	return undefined;
-}
+};
 
 Base.prototype.now = function() {
 	return 1;
-}
+};
 
 Base.prototype.build = function() {
 	return false;
-}
+};
 
 Base.prototype.spawnItems = function(num) {
 	// Resources spawn every turn seconds with probabilities of 5% gem (5), 10% gold (3), 20% copper (1), and 65% silver (2)
@@ -45,7 +45,7 @@ Base.prototype.spawnItems = function(num) {
 		var item = new Item();
 		this.items.push(item);
 	}
-}
+};
 
 function Item() {
 	this.value = 1;
@@ -59,4 +59,5 @@ function Position() {
 
 Position.prototype.distance = function(pos) {
 	return 100;
-}
+};
+

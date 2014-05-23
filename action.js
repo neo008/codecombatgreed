@@ -55,7 +55,6 @@ var nearestEnemy = this.getNearest(enemies);
 var enemyIsNear = false;
 if (nearestEnemy !== undefined) {
 	var closestDist = this.pos.distance(nearestEnemy.pos);
-} else {
 	enemyIsNear = closestDist < 10;
 }
 
