@@ -40,15 +40,31 @@ Base.prototype.build = function() {
 };
 
 Base.prototype.spawnItems = function(num) {
-	// Resources spawn every turn seconds with probabilities of 5% gem (5), 10% gold (3), 20% copper (1), and 65% silver (2)
 	for (var i = 0; i < num; i++) {
 		var item = new Item();
+		var value = Math.random() * 20;
+		if (value < 1) {
+			// 5% gem
+			value = 5;
+		} else if (value < 3) {
+			// 10% gold
+			value = 3;
+		} else if (value < 7)  {
+			// 20% copper
+			value = 1;
+		} else {
+			// 65% silver
+			value = 2;
+		}
+		item.value = value;
+		item.pos.x = Math.floor(Math.random() * 85);
+		item.pos.y = Math.floor(Math.random() * 70);
 		this.items.push(item);
 	}
 };
 
 function Item() {
-	this.value = 1;
+	this.value = 0;
 	this.pos = new Position();
 }
 
