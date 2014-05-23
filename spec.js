@@ -5,7 +5,7 @@ describe("Base", function() {
 	base = new Base();
   });
   
-  it("should spwans 20 random items", function() {
+  it("should spwans 20 items", function() {
 	base.spawnItems(20);
 	expect(base.items.length).toBe(20);
   });
