@@ -1,3 +1,5 @@
+Base.prototype.run = function() {
+
 // This code runs once per frame. Build units and command peasants!
 // Destroy the ogre base within 180 seconds.
 // Run over 4000 statements per call and chooseAction will run less often.
