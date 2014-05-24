@@ -1,5 +1,3 @@
-Base.prototype.run = function() {
-
 // This code runs once per frame. Build units and command peasants!
 // Destroy the ogre base within 180 seconds.
 // Run over 4000 statements per call and chooseAction will run less often.
@@ -10,6 +8,23 @@ Base.prototype.run = function() {
 // Resources spawn every turn seconds with probabilities of 5% gem (5), 10% gold (3), 20% copper (1), and 65% silver (2)
 // Coins spawn between (0, 0) and (85, 70)
 // map x:0-85 y:0-70, center x:43, 35
+// Peasants can gather gold; other units auto-attack the enemy base.
+// You can only build one unit per frame, if you have enough gold.
+
+this.getEnemySoliders = function() {
+    // this includes peon, not what we really want
+    var enemies = this.getEnemies();
+    var soliders = [];
+    if (enemies !== undefined) {
+        for (var i = 0; i < enemies.length; i++) {
+            if (enemies[i].type != "peon") {
+                this.say(enemies[i].type);
+                soliders.push(enemies[i]);
+            }
+        }
+    }
+    return enemies;
+};
 
 if (this.warStarted === undefined) {
     this.warStarted = false;
@@ -46,16 +61,13 @@ for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
 	}
 } // for
 
+var enemySoliders = this.getEnemySoliders();
+var nearestEnemy = this.getNearest(enemySoliders);
 
-/////// 2. Decide which unit to build this frame. ///////
-// Peasants can gather gold; other units auto-attack the enemy base.
-// You can only build one unit per frame, if you have enough gold.
-var enemies = this.getEnemies();
-var nearestEnemy = this.getNearest(enemies);
 var enemyIsNear = false;
 if (nearestEnemy !== undefined) {
 	var closestDist = this.pos.distance(nearestEnemy.pos);
-	enemyIsNear = closestDist < 10;
+	enemyIsNear = closestDist < 30;
 }
 
 var middleGame = this.now() > 60;
@@ -67,8 +79,12 @@ if (!enemyIsNear && !middleGame) {
     type = 'peasant';
 } else {
     // save money for later
-    if (lastGame || enemyIsNear) {
+    if (lastGame || enemyIsNear || this.warStarted) {
         type = units[Math.floor(Math.random() * units.length)];
+        if (!this.warStarted) {
+            this.say('war started!');
+        }
+        this.warStarted = true;
     }
 }
 
@@ -76,4 +92,5 @@ if (type !== undefined) {
     if (this.gold >= this.buildables[type].goldCost)
         this.build(type);
 }
-}; // function run ends
+
+
