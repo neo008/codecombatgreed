@@ -25,7 +25,7 @@ this.getEnemySoliders = function() {
             }
         }
     }
-    return enemies;
+    return soliders;
 };
 
 if (this.warStarted === undefined) {
