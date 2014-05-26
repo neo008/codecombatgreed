@@ -24,6 +24,6 @@ describe("Support functions", function() {
   
   it("should returns array without peon", function() {
     var enemySolider = base.getEnemySoliders(eneimes);
-    expect(enemySolider.length).toBe(1);
+    expect(enemySolider).not.toContain({'type':'peon'});
   });
 });
