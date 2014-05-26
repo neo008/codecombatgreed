@@ -1,7 +1,7 @@
 function Buildable() {
 	this.goldCost = 10;
 	this.mapWidth = 85;
-	this.mapEhy:0-70
+	this.mapHeight = 70;
 }
 
 function Base() {
@@ -9,6 +9,7 @@ function Base() {
 	this.gold = 0;
 	// Items
 	this.items = [];
+	this.enemies = [];
 	var units = ['peasant', 'soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
 	this.buildables = {}; //this.buildables[type].goldCost
 	for (var i = 0; i < units.length; i++) {
@@ -25,7 +26,7 @@ Base.prototype.getByType = function(type) {
 };
 
 Base.prototype.getEnemies = function() {
-	return [];
+	return this.enemies;
 };
 
 Base.prototype.getNearest = function() {
@@ -63,13 +64,13 @@ Base.prototype.spawnItems = function(num) {
 		this.items.push(item);
 	}
 };
-
+/*
 Base.prototype.distributeItems(items) {
 	for (var i = 0; i < items.length; i++) {
 		
 	}
 }
-
+*/
 function Item() {
 	this.value = 0;
 	this.pos = new Position();
