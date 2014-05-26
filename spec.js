@@ -18,10 +18,12 @@ describe("Support functions", function() {
   beforeEach(function() {
     base = new Base();
     base.enemies = [{'type':'peon'},{'type':'solider'}];
+	// run at least once to init function defined in function run()
+	base.run(); 
   });
   
   it("should returns array without peon", function() {
-    var enemySolider = base.getEnemySoliders();
+    var enemySolider = base.getEnemySoliders(eneimes);
     expect(enemySolider.length).toBe(1);
   });
 });
