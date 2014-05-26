@@ -13,6 +13,49 @@ Base.prototype.run = function() {
 // Peasants can gather gold; other units auto-attack the enemy base.
 // You can only build one unit per frame, if you have enough gold.
 
+// forward declaration
+this.movePeasants = function() {};
+this.getEnemySoliders = function() {};
+
+if (this.warStarted === undefined) {
+    this.warStarted = false;
+}
+
+this.movePeasants();
+	
+var enemySoliders = this.getEnemySoliders();
+var nearestEnemy = this.getNearest(enemySoliders);
+
+var enemyIsNear = false;
+if (nearestEnemy !== undefined) {
+	var closestDist = this.pos.distance(nearestEnemy.pos);
+	enemyIsNear = closestDist < 30;
+}
+
+var middleGame = this.now() > 60;
+var lastGame = this.now() > 120;
+var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
+
+var type;
+if (!enemyIsNear && !middleGame) {
+    type = 'peasant';
+} else {
+    // save money for later
+    if (lastGame || enemyIsNear || this.warStarted) {
+        type = units[Math.floor(Math.random() * units.length)];
+        if (!this.warStarted) {
+            this.say('war started!');
+        }
+        this.warStarted = true;
+    }
+}
+
+if (type !== undefined) {
+    if (this.gold >= this.buildables[type].goldCost)
+        this.build(type);
+}
+
+
 this.getEnemySoliders = function() {
     // this includes peon, not what we really want
     var enemies = this.getEnemies();
@@ -60,44 +103,5 @@ this.movePeasants = function() {
 		}
 	} // for
 }; // end movePeasants()
-
-if (this.warStarted === undefined) {
-    this.warStarted = false;
-}
-
-this.movePeasants();
-	
-var enemySoliders = this.getEnemySoliders();
-var nearestEnemy = this.getNearest(enemySoliders);
-
-var enemyIsNear = false;
-if (nearestEnemy !== undefined) {
-	var closestDist = this.pos.distance(nearestEnemy.pos);
-	enemyIsNear = closestDist < 30;
-}
-
-var middleGame = this.now() > 60;
-var lastGame = this.now() > 120;
-var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
-
-var type;
-if (!enemyIsNear && !middleGame) {
-    type = 'peasant';
-} else {
-    // save money for later
-    if (lastGame || enemyIsNear || this.warStarted) {
-        type = units[Math.floor(Math.random() * units.length)];
-        if (!this.warStarted) {
-            this.say('war started!');
-        }
-        this.warStarted = true;
-    }
-}
-
-if (type !== undefined) {
-    if (this.gold >= this.buildables[type].goldCost)
-        this.build(type);
-}
-
 
 }; // end Base.prototype.run
