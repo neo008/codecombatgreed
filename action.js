@@ -96,4 +96,4 @@ if (type !== undefined) {
 }
 
 
-} // end Base.prototype.run
+}; // end Base.prototype.run
