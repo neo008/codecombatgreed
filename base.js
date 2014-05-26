@@ -37,6 +37,10 @@ Base.prototype.now = function() {
 	return 1;
 };
 
+Base.prototype.say = function(msg) {
+	console.log('say: ' + msg);
+}
+
 Base.prototype.build = function() {
 	return false;
 };
