@@ -1,3 +1,15 @@
+// Destroy the ogre base within 180 seconds.
+// Run over 4000 statements per call and chooseAction will run less often.
+// Check out the green Guide button at the top for more info.
+// All fighting units move at 5 m/s
+// The peasants/peons move at 10 m/s
+// Turns take 0.25 seconds
+// Resources spawn every turn seconds with probabilities of 5% gem (5), 10% gold (3), 20% copper (1), and 65% silver (2)
+// Coins spawn between (0, 0) and (85, 70)
+// map x:0-85 y:0-70, center x:43, 35
+// Peasants can gather gold; other units auto-attack the enemy base.
+// You can only build one unit per frame, if you have enough gold.
+
 function Situation() {
 	this.warStarted = false;
 	this.enemyIsNear = false;
@@ -18,20 +30,8 @@ Situation.prototype.update = function() {
 	}
 };
 
-Base.prototype.run = function() {
-
 // This code runs once per frame. Build units and command peasants!
-// Destroy the ogre base within 180 seconds.
-// Run over 4000 statements per call and chooseAction will run less often.
-// Check out the green Guide button at the top for more info.
-// All fighting units move at 5 m/s
-// The peasants/peons move at 10 m/s
-// Turns take 0.25 seconds
-// Resources spawn every turn seconds with probabilities of 5% gem (5), 10% gold (3), 20% copper (1), and 65% silver (2)
-// Coins spawn between (0, 0) and (85, 70)
-// map x:0-85 y:0-70, center x:43, 35
-// Peasants can gather gold; other units auto-attack the enemy base.
-// You can only build one unit per frame, if you have enough gold.
+Base.prototype.run = function() {
 
 // forward declaration
 this.buildUnit = function() {};
