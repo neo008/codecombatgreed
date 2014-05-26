@@ -28,6 +28,23 @@ describe("Support functions", function() {
   });
 });
 
+describe("Runner flow", function() {
+	var base;
+	beforeEach(function() {
+		base = new Base();
+		// init
+		base.run();
+		spyOn(base.situation, 'update');
+		// real run
+		base.run();
+	});
+	
+	it ("should update situation every turn", function() {
+		expect(base.situation.update).toHaveBeenCalled();
+	});
+});
+
+
 describe("Build unit logic", function() {
 	var base;
 	var situation;

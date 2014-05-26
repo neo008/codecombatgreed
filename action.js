@@ -10,7 +10,8 @@
 // Peasants can gather gold; other units auto-attack the enemy base.
 // You can only build one unit per frame, if you have enough gold.
 
-function Situation() {
+function Situation(base) {
+	this.base = base;
 	this.warStarted = false;
 	this.enemyIsNear = false;
 	this.middleGame = false;
@@ -18,14 +19,14 @@ function Situation() {
 };
 
 Situation.prototype.update = function() {
-	this.middleGame = this.now() > 60;
-	this.lastGame = this.now() > 120;
+	this.middleGame = this.base.now() > 60;
+	this.lastGame = this.base.now() > 120;
 	
-	var enemySoliders = this.getEnemySoliders();
-	var nearestEnemy = this.getNearest(enemySoliders);
+	var enemySoliders = this.base.getEnemySoliders();
+	var nearestEnemy = this.base.getNearest(enemySoliders);
 
 	if (nearestEnemy !== undefined) {
-		var closestDist = this.pos.distance(nearestEnemy.pos);
+		var closestDist = this.base.pos.distance(nearestEnemy.pos);
 		this.enemyIsNear = closestDist < 30;
 	}
 };
@@ -41,7 +42,7 @@ this.movePeasants = function() {};
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
 
 if (this.situation === undefined) {
-	this.situation = new Situation();
+	this.situation = new Situation(this);
 }
 
 // situation changes every turn so we need to update
