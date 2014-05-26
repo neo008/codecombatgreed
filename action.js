@@ -38,13 +38,16 @@ this.buildUnit = function() {};
 this.getEnemySoliders = function() {};
 this.movePeasants = function() {};
 
+var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
+
 if (this.situation === undefined) {
 	this.situation = new Situation();
 }
 
+// situation changes every turn so we need to update
+this.situation.update();
+
 this.movePeasants();
-	
-var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
 
 this.buildUnit(this.situation);
 
