@@ -39,8 +39,8 @@ describe("Runner flow", function() {
 		base.run();
 	});
 	
-	it ("should update situation every turn", function() {
-		expect(base.situation.update).toHaveBeenCalled();
+	it ("should update situation once every turn", function() {
+		expect(base.situation.update.calls.count()).toEqual(1);
 	});
 });
 
