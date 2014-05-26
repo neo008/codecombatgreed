@@ -19,7 +19,7 @@ this.getEnemySoliders = function() {
     var soliders = [];
     if (enemies !== undefined) {
         for (var i = 0; i < enemies.length; i++) {
-            if (enemies[i].type != "peon") {
+            if (enemies[i].type !== "peon") {
                 this.say(enemies[i].type);
                 soliders.push(enemies[i]);
             }
