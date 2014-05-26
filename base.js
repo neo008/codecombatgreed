@@ -2,7 +2,7 @@ function Buildable() {
 	this.goldCost = 10;
 	this.mapWidth = 85;
 	this.mapHeight = 70;
-}
+};
 
 function Base() {
 	this.pos = new Position();
@@ -15,7 +15,7 @@ function Base() {
 	for (var i = 0; i < units.length; i++) {
 		this.buildables[units[i]] = new Buildable();
 	}
-}
+};
 
 Base.prototype.dump = function(){
 	console.log('testing');

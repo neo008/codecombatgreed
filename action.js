@@ -1,3 +1,23 @@
+function Situation() {
+	this.warStarted = false;
+	this.enemyIsNear = false;
+	this.middleGame = false;
+	this.lastGame = false;
+};
+
+Situation.prototype.update = function() {
+	this.middleGame = this.now() > 60;
+	this.lastGame = this.now() > 120;
+	
+	var enemySoliders = this.getEnemySoliders();
+	var nearestEnemy = this.getNearest(enemySoliders);
+
+	if (nearestEnemy !== undefined) {
+		var closestDist = this.pos.distance(nearestEnemy.pos);
+		this.enemyIsNear = closestDist < 30;
+	}
+};
+
 Base.prototype.run = function() {
 
 // This code runs once per frame. Build units and command peasants!
@@ -14,47 +34,44 @@ Base.prototype.run = function() {
 // You can only build one unit per frame, if you have enough gold.
 
 // forward declaration
-this.movePeasants = function() {};
+this.buildUnit = function() {};
 this.getEnemySoliders = function() {};
+this.movePeasants = function() {};
 
-if (this.warStarted === undefined) {
-    this.warStarted = false;
+if (this.situation === undefined) {
+	this.situation = new Situation();
 }
 
 this.movePeasants();
 	
-var enemySoliders = this.getEnemySoliders();
-var nearestEnemy = this.getNearest(enemySoliders);
-
-var enemyIsNear = false;
-if (nearestEnemy !== undefined) {
-	var closestDist = this.pos.distance(nearestEnemy.pos);
-	enemyIsNear = closestDist < 30;
-}
-
-var middleGame = this.now() > 60;
-var lastGame = this.now() > 120;
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
 
-var type;
-if (!enemyIsNear && !middleGame) {
-    type = 'peasant';
-} else {
-    // save money for later
-    if (lastGame || enemyIsNear || this.warStarted) {
-        type = units[Math.floor(Math.random() * units.length)];
-        if (!this.warStarted) {
-            this.say('war started!');
-        }
-        this.warStarted = true;
-    }
-}
+this.buildUnit(this.situation);
 
-if (type !== undefined) {
-    if (this.gold >= this.buildables[type].goldCost)
-        this.build(type);
-}
+/**
+ * @return unit type that we want to build
+ */
+this.buildUnit = function(situation) {
+	var type = 'peasant';
+	if (situation.enemyIsNear || situation.middleGame) {
+		// save money for later
+		if (situation.lastGame || situation.enemyIsNear || situation.warStarted) {
+			type = units[Math.floor(Math.random() * units.length)];
+			if (!situation.warStarted) {
+				this.say('war started!');
+			}
+			situation.warStarted = true;
+		}
+	}
 
+	// build if we have enough gold
+	if (type !== undefined) {
+		if (this.gold >= this.buildables[type].goldCost)
+			this.build(type);
+	}
+	
+	return type;
+}; // end buildUnit()
 
 this.getEnemySoliders = function() {
     // this includes peon, not what we really want

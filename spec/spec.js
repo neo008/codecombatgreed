@@ -27,3 +27,25 @@ describe("Support functions", function() {
     expect(enemySolider).not.toContain({'type':'peon'});
   });
 });
+
+describe("Build unit logic", function() {
+	var base;
+	var situation;
+	
+	beforeEach(function() {
+		base = new Base();
+		situation = new Situation();
+		base.run(); 
+	});
+	
+	it ("should not build peasant when enemy is near", function() {
+		base.gold = 1000;
+		situation.enemyIsNear = true;
+		expect(base.buildUnit(situation)).not.toBe("peasant");
+	});
+	
+	it ("should build peasant when enemy is not near", function() {
+		base.gold = 1000;
+		expect(base.buildUnit(situation)).toBe("peasant");
+	});
+});
