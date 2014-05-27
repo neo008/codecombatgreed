@@ -55,7 +55,7 @@ describe("Runner flow", function() {
 		expect(situation.midGame).toBe(true);
 	});
 	
-	it ("should be in midGame situation after 120s", function() {
+	it ("should be in lateGame situation after 120s", function() {
 		base._now = 120.1;
 		var situation = base.situationSetup();
 		base.situationUpdate(situation);
