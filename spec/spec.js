@@ -34,13 +34,13 @@ describe("Runner flow", function() {
 		base = new Base();
 		// init
 		base.run();
-		spyOn(base.situation, 'update');
+		spyOn(base, 'situationUpdate');
 		// real run
 		base.run();
 	});
 	
 	it ("should update situation once every turn", function() {
-		expect(base.situation.update.calls.count()).toEqual(1);
+		expect(base.situationUpdate.calls.count()).toEqual(1);
 	});
 });
 
@@ -51,13 +51,13 @@ describe("Build unit logic", function() {
 	
 	beforeEach(function() {
 		base = new Base();
-		situation = new Situation();
 		base.run(); 
+		base.situationSetup();
 	});
 	
 	it ("should not build peasant when enemy is near", function() {
 		base.gold = 1000;
-		situation.enemyIsNear = true;
+		base.situation['enemyIsNear'] = true;
 		expect(base.buildUnit(situation)).not.toBe("peasant");
 	});
 	

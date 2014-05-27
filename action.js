@@ -10,61 +10,48 @@
 // Peasants can gather gold; other units auto-attack the enemy base.
 // You can only build one unit per frame, if you have enough gold.
 
-function Situation(base) {
-	this.base = base;
-	this.warStarted = false;
-	this.enemyIsNear = false;
-	this.middleGame = false;
-	this.lastGame = false;
-};
-
-Situation.prototype.update = function() {
-	this.middleGame = this.base.now() > 60;
-	this.lastGame = this.base.now() > 120;
-	
-	var enemySoliders = this.base.getEnemySoliders();
-	var nearestEnemy = this.base.getNearest(enemySoliders);
-
-	if (nearestEnemy !== undefined) {
-		var closestDist = this.base.pos.distance(nearestEnemy.pos);
-		this.enemyIsNear = closestDist < 30;
-	}
-};
-
 // This code runs once per frame. Build units and command peasants!
 Base.prototype.run = function() {
 
 // forward declaration
-this.buildUnit = function() {};
-this.getEnemySoliders = function() {};
-this.movePeasants = function() {};
+if (this.functionDeclared === undefined) {
+	this.functionDeclared = true;
+	this.buildUnit = function() {};
+	this.getEnemySoliders = function() {};
+	this.movePeasants = function() {};
+	this.situationSetup = function() {};
+	this.situationUpdate = function() {};
+}
 
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
 
 if (this.situation === undefined) {
-	this.situation = new Situation(this);
+	this.situationSetup();
 }
 
 // situation changes every turn so we need to update
-this.situation.update();
+this.situationUpdate();
 
 this.movePeasants();
 
 this.buildUnit(this.situation);
 
+if (this.functionDefined === undefined) {
+	this.functionDefined = true;
+	
 /**
  * @return unit type that we want to build
  */
 this.buildUnit = function(situation) {
 	var type = 'peasant';
-	if (situation.enemyIsNear || situation.middleGame) {
+	if (this.situation['enemyIsNear'] || this.situation['middleGame']) {
 		// save money for later
-		if (situation.lastGame || situation.enemyIsNear || situation.warStarted) {
+		if (this.situation['lastGame'] || this.situation['enemyIsNear'] || this.situation['warStarted']) {
 			type = units[Math.floor(Math.random() * units.length)];
-			if (!situation.warStarted) {
+			if (!this.situation['warStarted']) {
 				this.say('war started!');
 			}
-			situation.warStarted = true;
+			this.situation['warStarted'] = true;
 		}
 	}
 
@@ -124,5 +111,29 @@ this.movePeasants = function() {
 		}
 	} // for
 }; // end movePeasants()
+
+this.situationSetup = function() {
+	this.situation = {
+			'warStarted' : false,
+			'enemyIsNear' : false,
+			'middleGame' : false,
+			'lastGame' : false,
+		};
+};// end situationSetup()
+
+this.situationUpdate = function() {
+	this.situation['middleGame'] = this.base.now() > 60;
+	this.situation['lastGame'] = this.base.now() > 120;
+	
+	var enemySoliders = this.base.getEnemySoliders();
+	var nearestEnemy = this.base.getNearest(enemySoliders);
+
+	if (nearestEnemy !== undefined) {
+		var closestDist = this.base.pos.distance(nearestEnemy.pos);
+		this.situation['enemyIsNear'] = closestDist < 30;
+	}
+}; // end situationUpdate()
+
+} // end if functionDefined
 
 }; // end Base.prototype.run
