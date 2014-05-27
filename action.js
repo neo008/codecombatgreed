@@ -16,7 +16,7 @@ Base.prototype.run = function() {
 // forward declaration
 if (this.functionDeclared === undefined) {
 	this.functionDeclared = true;
-	this.buildUnit = function() {};
+	this.unitToBuild = function() {};
 	this.getEnemySoliders = function() {};
 	this.movePeasants = function() {};
 	this.situationSetup = function() {};
@@ -33,9 +33,10 @@ if (this.situation === undefined) {
 // situation changes every turn so we need to update
 this.situationUpdate();
 
+// peasants move independ to situation and military units
 this.movePeasants();
 
-this.buildUnit(this.situation);
+this.unitToBuild(this.situation);
 
 if (this.functionDefined === undefined) {
 	this.functionDefined = true;
@@ -43,7 +44,7 @@ if (this.functionDefined === undefined) {
 /**
  * @return unit type that we want to build
  */
-this.buildUnit = function(situation) {
+this.unitToBuild = function(situation) {
 	// save money for later
 	if (!situation.enemyIsNear && situation.midGame) {
 		return undefined;
@@ -61,7 +62,7 @@ this.buildUnit = function(situation) {
 	}
 	
 	return type;
-}; // end buildUnit()
+}; // end unitToBuild()
 
 this.getEnemySoliders = function() {
     // this includes peon, not what we really want
@@ -118,7 +119,7 @@ this.situationSetup = function() {
 	situation.warStarted = false;
 	situation.enemyIsNear = false;
 	situation.midGame = false;
-	situation.lastGame = false;
+	situation.lateGame = false;
 	
 	return situation;
 };// end situationSetup()

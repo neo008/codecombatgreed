@@ -58,18 +58,18 @@ describe("Build unit logic", function() {
 	it ("should not build peasant when enemy is near", function() {
 		base.gold = 1000;
 		situation.enemyIsNear = true;
-		expect(base.buildUnit(situation)).not.toBe("peasant");
+		expect(base.unitToBuild(situation)).not.toBe("peasant");
 	});
 	
 	it ("should build peasants when enemy is not near", function() {
 		base.gold = 1000;
-		expect(base.buildUnit(situation)).toBe("peasant");
+		expect(base.unitToBuild(situation)).toBe("peasant");
 	});
 	
 	it ("should stop building unit during mid-game and enemy is not near", function() {
 		situation.enemyIsNear = false;
 		situation.midGame = true;
-		expect(base.buildUnit(situation)).toBeUndefined();
+		expect(base.unitToBuild(situation)).toBeUndefined();
 	
 	});
 });
