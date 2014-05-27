@@ -65,4 +65,11 @@ describe("Build unit logic", function() {
 		base.gold = 1000;
 		expect(base.buildUnit(situation)).toBe("peasant");
 	});
+	
+	it ("should stop building unit during mid-game and enemy is not near", function() {
+		base.situation['enemyIsNear'] = false;
+		base.situation['midGame'] = true;
+		expect(base.buildUnit(situation)).toBeUndefined();
+	
+	});
 });

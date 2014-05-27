@@ -43,9 +43,13 @@ if (this.functionDefined === undefined) {
  * @return unit type that we want to build
  */
 this.buildUnit = function(situation) {
+	// save money for later
+	if (!this.situation['enemyIsNear'] && this.situation['midGame']) {
+		return undefined;
+	}
+	
 	var type = 'peasant';
-	if (this.situation['enemyIsNear'] || this.situation['middleGame']) {
-		// save money for later
+	if (this.situation['enemyIsNear'] || this.situation['midGame']) {
 		if (this.situation['lastGame'] || this.situation['enemyIsNear'] || this.situation['warStarted']) {
 			type = units[Math.floor(Math.random() * units.length)];
 			if (!this.situation['warStarted']) {
@@ -116,13 +120,13 @@ this.situationSetup = function() {
 	this.situation = {
 			'warStarted' : false,
 			'enemyIsNear' : false,
-			'middleGame' : false,
+			'mid' : false,
 			'lastGame' : false,
 		};
 };// end situationSetup()
 
 this.situationUpdate = function() {
-	this.situation['middleGame'] = this.base.now() > 60;
+	this.situation['mid'] = this.base.now() > 60;
 	this.situation['lastGame'] = this.base.now() > 120;
 	
 	var enemySoliders = this.base.getEnemySoliders();
