@@ -25,8 +25,9 @@ if (this.functionDeclared === undefined) {
 
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
 
+// an injectable object for tests
 if (this.situation === undefined) {
-	this.situationSetup();
+	this.situation = this.situationSetup();
 }
 
 // situation changes every turn so we need to update
@@ -44,12 +45,12 @@ if (this.functionDefined === undefined) {
  */
 this.buildUnit = function(situation) {
 	// save money for later
-	if (!this.situation.enemyIsNear && this.situation.midGame) {
+	if (!situation.enemyIsNear && situation.midGame) {
 		return undefined;
 	}
 	
 	var type = 'peasant';
-	if (this.situation.enemyIsNear || this.situation.warStarted) {
+	if (situation.enemyIsNear || situation.warStarted) {
 		type = units[Math.floor(Math.random() * units.length)];
 	}
 
@@ -109,12 +110,17 @@ this.movePeasants = function() {
 	} // for
 }; // end movePeasants()
 
+/**
+ * @return object with situation
+ */
 this.situationSetup = function() {
-	this.situation = new Object();
-	this.situation.warStarted = false;
-	this.situation.enemyIsNear = false;
-	this.situation.midGame = false;
-	this.situation.lastGame = false;
+	var situation = new Object();
+	situation.warStarted = false;
+	situation.enemyIsNear = false;
+	situation.midGame = false;
+	situation.lastGame = false;
+	
+	return situation;
 };// end situationSetup()
 
 this.situationUpdate = function() {
