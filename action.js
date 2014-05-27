@@ -44,18 +44,18 @@ if (this.functionDefined === undefined) {
  */
 this.buildUnit = function(situation) {
 	// save money for later
-	if (!this.situation['enemyIsNear'] && this.situation['midGame']) {
+	if (!this.situation.enemyIsNear && this.situation.midGame) {
 		return undefined;
 	}
 	
 	var type = 'peasant';
-	if (this.situation['enemyIsNear'] || this.situation['midGame']) {
-		if (this.situation['lastGame'] || this.situation['enemyIsNear'] || this.situation['warStarted']) {
+	if (this.situation.enemyIsNear || this.situation.midGame) {
+		if (this.situation.lastGame || this.situation.enemyIsNear || this.situation.warStarted) {
 			type = units[Math.floor(Math.random() * units.length)];
-			if (!this.situation['warStarted']) {
+			if (!this.situation.warStarted) {
 				this.say('war started!');
 			}
-			this.situation['warStarted'] = true;
+			this.situation.warStarted = true;
 		}
 	}
 
@@ -75,7 +75,6 @@ this.getEnemySoliders = function() {
     if (enemies !== undefined) {
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].type !== "peon") {
-                this.say(enemies[i].type);
                 soliders.push(enemies[i]);
             }
         }
@@ -117,24 +116,23 @@ this.movePeasants = function() {
 }; // end movePeasants()
 
 this.situationSetup = function() {
-	this.situation = {
-			'warStarted' : false,
-			'enemyIsNear' : false,
-			'mid' : false,
-			'lastGame' : false,
-		};
+	this.situation = new Object();
+	this.situation.warStarted = false;
+	this.situation.enemyIsNear = false;
+	this.situation.midGame = false;
+	this.situation.lastGame = false;
 };// end situationSetup()
 
 this.situationUpdate = function() {
-	this.situation['mid'] = this.base.now() > 60;
-	this.situation['lastGame'] = this.base.now() > 120;
+	this.situation.midGame = this.now() > 60;
+	this.situation.lastGame = this.now() > 120;
 	
-	var enemySoliders = this.base.getEnemySoliders();
-	var nearestEnemy = this.base.getNearest(enemySoliders);
+	var enemySoliders = this.getEnemySoliders();
+	var nearestEnemy = this.getNearest(enemySoliders);
 
 	if (nearestEnemy !== undefined) {
-		var closestDist = this.base.pos.distance(nearestEnemy.pos);
-		this.situation['enemyIsNear'] = closestDist < 30;
+		var closestDist = this.pos.distance(nearestEnemy.pos);
+		this.situation.enemyIsNear = closestDist < 30;
 	}
 }; // end situationUpdate()
 
