@@ -118,7 +118,10 @@ this.situationSetup = function() {
 	var situation = new Object();
 	situation.warStarted = false;
 	situation.enemyIsNear = false;
+	// middle of the game, a point where building more peasants is pointless.
+	// we should save money or start to build unit
 	situation.midGame = false;
+	// the game is going to end. The game would lose/draw if we do not start to destroy the enemy base
 	situation.lateGame = false;
 	
 	return situation;
@@ -126,7 +129,7 @@ this.situationSetup = function() {
 
 this.situationUpdate = function(situation) {
 	situation.midGame = this.now() > 60;
-	situation.lastGame = this.now() > 120;
+	situation.lateGame = this.now() > 120;
 	
 	var enemySoliders = this.getEnemySoliders();
 	var nearestEnemy = this.getNearest(enemySoliders);

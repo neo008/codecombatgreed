@@ -54,6 +54,13 @@ describe("Runner flow", function() {
 		base.situationUpdate(situation);
 		expect(situation.midGame).toBe(true);
 	});
+	
+	it ("should be in midGame situation after 120s", function() {
+		base._now = 120.1;
+		var situation = base.situationSetup();
+		base.situationUpdate(situation);
+		expect(situation.lateGame).toBe(true);
+	});
 });
 
 
