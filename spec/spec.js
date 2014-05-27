@@ -34,13 +34,25 @@ describe("Runner flow", function() {
 		base = new Base();
 		// init
 		base.run();
-		spyOn(base, 'situationUpdate');
-		// real run
-		base.run();
+	});
+	
+	it ("should able to set time for testing", function() {
+		base._now = 123;
+		expect(base.now()).toBe(123);
 	});
 	
 	it ("should update situation once every turn", function() {
+		spyOn(base, 'situationUpdate');
+		// real run
+		base.run();
 		expect(base.situationUpdate.calls.count()).toEqual(1);
+	});
+	
+	it ("should be in midGame situation after 60s", function() {
+		base._now = 61;
+		var situation = base.situationSetup();
+		base.situationUpdate(situation);
+		expect(situation.midGame).toBe(true);
 	});
 });
 

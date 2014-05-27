@@ -7,6 +7,7 @@ function Buildable() {
 function Base() {
 	this.pos = new Position();
 	this.gold = 0;
+	this._now = 1;
 	// Items
 	this.items = [];
 	this.enemies = [];
@@ -34,7 +35,7 @@ Base.prototype.getNearest = function() {
 };
 
 Base.prototype.now = function() {
-	return 1;
+	return this._now;
 };
 
 Base.prototype.say = function(msg) {
