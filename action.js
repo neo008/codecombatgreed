@@ -31,7 +31,7 @@ if (this.situation === undefined) {
 }
 
 // situation changes every turn so we need to update
-this.situationUpdate();
+this.situationUpdate(this.situation);
 
 // peasants move independ to situation and military units
 this.movePeasants();
@@ -124,22 +124,22 @@ this.situationSetup = function() {
 	return situation;
 };// end situationSetup()
 
-this.situationUpdate = function() {
-	this.situation.midGame = this.now() > 60;
-	this.situation.lastGame = this.now() > 120;
+this.situationUpdate = function(situation) {
+	situation.midGame = this.now() > 60;
+	situation.lastGame = this.now() > 120;
 	
 	var enemySoliders = this.getEnemySoliders();
 	var nearestEnemy = this.getNearest(enemySoliders);
 
 	if (nearestEnemy !== undefined) {
 		var closestDist = this.pos.distance(nearestEnemy.pos);
-		this.situation.enemyIsNear = closestDist < 30;
+		situation.enemyIsNear = closestDist < 30;
 	}
 	
-	if (this.situation.lastGame || this.situation.enemyIsNear) {
-		if (!this.situation.warStarted) {
+	if (situation.lastGame || situation.enemyIsNear) {
+		if (!situation.warStarted) {
 			this.say('war started!');
-			this.situation.warStarted = true;
+			situation.warStarted = true;
 		}
 	}
 }; // end situationUpdate()

@@ -49,7 +49,7 @@ describe("Runner flow", function() {
 	});
 	
 	it ("should be in midGame situation after 60s", function() {
-		base._now = 61;
+		base._now = 60.1;
 		var situation = base.situationSetup();
 		base.situationUpdate(situation);
 		expect(situation.midGame).toBe(true);
