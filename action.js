@@ -13,8 +13,14 @@
 // This code runs once per frame. Build units and command peasants!
 Base.prototype.run = function() {
 
-// forward declaration
+// forward declaration to constant and function 
 if (this.functionDeclared === undefined) {
+	// constants
+	this.ENEMY_CLOSE_DISTANCE = 30;
+	this.TIME_MID_GAME = 60;
+	this.TIME_LATE_GAME = 120;
+
+	// functions
 	this.functionDeclared = true;
 	this.unitToBuild = function() {};
 	this.getEnemySoliders = function() {};
@@ -118,9 +124,11 @@ this.situationSetup = function() {
 	var situation = new Object();
 	situation.warStarted = false;
 	situation.enemyIsNear = false;
+	
 	// middle of the game, a point where building more peasants is pointless.
 	// we should save money or start to build unit
 	situation.midGame = false;
+	
 	// the game is going to end. The game would lose/draw if we do not start to destroy the enemy base
 	situation.lateGame = false;
 	
@@ -128,15 +136,15 @@ this.situationSetup = function() {
 };// end situationSetup()
 
 this.situationUpdate = function(situation) {
-	situation.midGame = this.now() > 60;
-	situation.lateGame = this.now() > 120;
+	situation.midGame = this.now() > this.TIME_MID_GAME;
+	situation.lateGame = this.now() > this.TIME_LATE_GAME;
 	
 	var enemySoliders = this.getEnemySoliders();
 	var nearestEnemy = this.getNearest(enemySoliders);
 
 	if (nearestEnemy !== undefined) {
 		var closestDist = this.pos.distance(nearestEnemy.pos);
-		situation.enemyIsNear = closestDist < 30;
+		situation.enemyIsNear = closestDist < this.ENEMY_CLOSE_DISTANCE;
 	}
 	
 	if (situation.lastGame || situation.enemyIsNear) {
