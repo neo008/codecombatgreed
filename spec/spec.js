@@ -61,7 +61,7 @@ describe("Build unit logic", function() {
 		expect(base.buildUnit(situation)).not.toBe("peasant");
 	});
 	
-	it ("should build peasant when enemy is not near", function() {
+	it ("should build peasants when enemy is not near", function() {
 		base.gold = 1000;
 		expect(base.buildUnit(situation)).toBe("peasant");
 	});

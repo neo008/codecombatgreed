@@ -49,14 +49,8 @@ this.buildUnit = function(situation) {
 	}
 	
 	var type = 'peasant';
-	if (this.situation.enemyIsNear || this.situation.midGame) {
-		if (this.situation.lastGame || this.situation.enemyIsNear || this.situation.warStarted) {
-			type = units[Math.floor(Math.random() * units.length)];
-			if (!this.situation.warStarted) {
-				this.say('war started!');
-			}
-			this.situation.warStarted = true;
-		}
+	if (this.situation.enemyIsNear || this.situation.warStarted) {
+		type = units[Math.floor(Math.random() * units.length)];
 	}
 
 	// build if we have enough gold
@@ -133,6 +127,13 @@ this.situationUpdate = function() {
 	if (nearestEnemy !== undefined) {
 		var closestDist = this.pos.distance(nearestEnemy.pos);
 		this.situation.enemyIsNear = closestDist < 30;
+	}
+	
+	if (this.situation.lastGame || this.situation.enemyIsNear) {
+		if (!this.situation.warStarted) {
+			this.say('war started!');
+			this.situation.warStarted = true;
+		}
 	}
 }; // end situationUpdate()
 
