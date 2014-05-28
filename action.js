@@ -47,7 +47,6 @@ if (this.functionDefined === undefined) {
  * @return an array of array of items
  */
 this.clusterItems = function(items, regions) {
-	a+1;
 	if (regions < 1) throw "regions should not smaller than 1";
 	if (regions > 6) throw "regions should not more than 6";
 	
