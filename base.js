@@ -86,6 +86,11 @@ function Position() {
 	this.y = 0;
 }
 
+function Position(x, y) {
+	this.x = x;
+	this.y = y;
+}
+
 Position.prototype.distance = function(pos) {
 	return 100;
 };
