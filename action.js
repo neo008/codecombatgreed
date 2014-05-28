@@ -13,11 +13,12 @@ if (this.functionDeclared === undefined) {
 
 	// functions
 	this.functionDeclared = true;
-	this.unitToBuild = function() {};
+	this.distributeItems = function(items) {};
 	this.getEnemySoliders = function() {};
 	this.movePeasants = function() {};
 	this.situationSetup = function() {};
 	this.situationUpdate = function() {};
+	this.unitToBuild = function(situation) {};
 }
 
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
@@ -37,29 +38,14 @@ this.unitToBuild(this.situation);
 
 if (this.functionDefined === undefined) {
 	this.functionDefined = true;
-	
-/**
- * @return unit type that we want to build
- */
-this.unitToBuild = function(situation) {
-	// save money for later
-	if (!situation.enemyIsNear && situation.midGame) {
-		return undefined;
-	}
-	
-	var type = 'peasant';
-	if (situation.enemyIsNear || situation.warStarted) {
-		type = units[Math.floor(Math.random() * units.length)];
-	}
 
-	// build if we have enough gold
-	if (type !== undefined) {
-		if (this.gold >= this.buildables[type].goldCost)
-			this.build(type);
+
+this.distributeItems = function(items) {
+	for (var i = 0; i < items.length; i++) {
+		
 	}
-	
-	return type;
-}; // end unitToBuild()
+	return items;
+};
 
 this.getEnemySoliders = function() {
     // this includes peon, not what we really want
@@ -145,6 +131,31 @@ this.situationUpdate = function(situation) {
 		}
 	}
 }; // end situationUpdate()
+
+/**
+ * Decide what unit to build base on the situation
+ *
+ * @return unit type that we want to build
+ */
+this.unitToBuild = function(situation) {
+	// save money for later
+	if (!situation.enemyIsNear && situation.midGame) {
+		return undefined;
+	}
+	
+	var type = 'peasant';
+	if (situation.enemyIsNear || situation.warStarted) {
+		type = units[Math.floor(Math.random() * units.length)];
+	}
+
+	// build if we have enough gold
+	if (type !== undefined) {
+		if (this.gold >= this.buildables[type].goldCost)
+			this.build(type);
+	}
+	
+	return type;
+}; // end unitToBuild()
 
 } // end if functionDefined
 

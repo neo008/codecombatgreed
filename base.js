@@ -69,13 +69,7 @@ Base.prototype.spawnItems = function(num) {
 		this.items.push(item);
 	}
 };
-/*
-Base.prototype.distributeItems(items) {
-	for (var i = 0; i < items.length; i++) {
-		
-	}
-}
-*/
+
 function Item() {
 	this.value = 0;
 	this.pos = new Position();
