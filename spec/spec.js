@@ -70,6 +70,20 @@ describe("Runner flow", function() {
 	});
 });
 
+describe("Cluster items", function() {
+	var base;
+	
+	beforeEach(function() {
+		base = new Base();
+		base.run(); 
+	});	
+	
+	xit ("should throw on bad parameters", function() {
+		var bar = function() { a + 1 };
+		expect(bar).toThrow();
+//		base.clusterItems([], 0);
+	});
+});
 
 describe("Build unit logic", function() {
 	var base;

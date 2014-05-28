@@ -13,7 +13,7 @@ if (this.functionDeclared === undefined) {
 
 	// functions
 	this.functionDeclared = true;
-	this.distributeItems = function(items) {};
+	this.clusterItems = function(items, regions) {};
 	this.getEnemySoliders = function() {};
 	this.movePeasants = function() {};
 	this.situationSetup = function() {};
@@ -39,8 +39,18 @@ this.unitToBuild(this.situation);
 if (this.functionDefined === undefined) {
 	this.functionDefined = true;
 
-
-this.distributeItems = function(items) {
+/**
+ * try to 'cluster' items into provided regions
+ * 
+ * @param regions min 1, max 6
+ *
+ * @return an array of array of items
+ */
+this.clusterItems = function(items, regions) {
+	a+1;
+	if (regions < 1) throw "regions should not smaller than 1";
+	if (regions > 6) throw "regions should not more than 6";
+	
 	for (var i = 0; i < items.length; i++) {
 		
 	}
