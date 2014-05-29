@@ -198,9 +198,9 @@ this.unitToBuild = function(situation) {
  */
 this.withinRegion = function(pos, region) {
 	if (pos.x < region[0]) return false;
-	if (pos.x > region[2]) return false;
+	if (pos.x >= region[2]) return false;
 	if (pos.y < region[1]) return false;
-	if (pos.y > region[3]) return false;
+	if (pos.y >= region[3]) return false;
 	return true;
 }; // end withinRegion()
 

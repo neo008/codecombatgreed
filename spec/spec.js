@@ -35,8 +35,21 @@ describe("Support functions", function() {
   });
   
   it("should valid withinRegion", function() {
+	// top-left
 	expect(base.withinRegion(new Position(0, 0), base.MAP_REGIONS[0])).toBe(true);
+	
+	// bottom-right
 	expect(base.withinRegion(new Position(base.MAP_WIDTH, base.MAP_HEIGHT), base.MAP_REGIONS[0])).toBe(false);
+	
+	// boundary cases
+	expect(base.withinRegion(new Position(base.MAP_WIDTH13, 0), base.MAP_REGIONS[0])).toBe(false);
+	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT13), base.MAP_REGIONS[0])).toBe(false);
+	expect(base.withinRegion(new Position(base.MAP_WIDTH13, 0), base.MAP_REGIONS[1])).toBe(true);
+	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT13), base.MAP_REGIONS[3])).toBe(true);
+	expect(base.withinRegion(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[1])).toBe(false);
+	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[3])).toBe(false);
+	expect(base.withinRegion(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[2])).toBe(true);
+	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[6])).toBe(true);
   });
 });
 
