@@ -9,7 +9,23 @@ if (this.functionDeclared === undefined) {
 	this.TIME_LATE_GAME = 120;
 	this.MAP_WIDTH = 85;
 	this.MAP_HEIGHT = 70;
+	this.MAP_WIDTH13 = Math.floor(this.MAP_WIDTH / 3);
+	this.MAP_WIDTH23 = Math.floor(this.MAP_WIDTH * 2 / 3);
+	this.MAP_HEIGHT13 = Math.floor(this.MAP_HEIGHT / 3);
+	this.MAP_HEIGHT23 = Math.floor(this.MAP_HEIGHT * 2 / 3);
 	this.MAP_CENTER = new Position(Math.floor(this.MAP_WIDTH/2), Math.floor(this.MAP_HEIGHT/2));
+	// [x1, y1, x2, y2]
+	this.MAP_REGIONS = [
+		[0, 0, this.MAP_WIDTH13, this.MAP_HEIGHT13],
+		[this.MAP_WIDTH13, 0, this.MAP_WIDTH23, this.MAP_HEIGHT13],
+		[this.MAP_WIDTH23, 0, this.MAP_WIDTH, this.MAP_HEIGHT13],
+		[0, this.MAP_HEIGHT13, this.MAP_WIDTH13, this.MAP_HEIGHT23],
+		[this.MAP_WIDTH13, this.MAP_HEIGHT13, this.MAP_WIDTH23, this.MAP_HEIGHT23],
+		[this.MAP_WIDTH23, this.MAP_HEIGHT13, this.MAP_WIDTH, this.MAP_HEIGHT23],
+		[0, this.MAP_HEIGHT23, this.MAP_WIDTH13, this.MAP_HEIGHT],
+		[this.MAP_WIDTH13, this.MAP_HEIGHT23, this.MAP_WIDTH23, this.MAP_HEIGHT],
+		[this.MAP_WIDTH23, this.MAP_HEIGHT23, this.MAP_WIDTH, this.MAP_HEIGHT],
+	];
 
 	// functions
 	this.functionDeclared = true;
@@ -19,6 +35,7 @@ if (this.functionDeclared === undefined) {
 	this.situationSetup = function() {};
 	this.situationUpdate = function() {};
 	this.unitToBuild = function(situation) {};
+	this.withinRegion = function(pos, inRegion, regions) {};
 }
 
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
@@ -50,10 +67,17 @@ this.clusterItems = function(items, regions) {
 	if (regions < 1) throw "regions should not smaller than 1";
 	if (regions > 6) throw "regions should not more than 6";
 	
+	switch (regions) {
+		case 1:
+			return [items.filter(function() {
+				
+				return true;
+			})];
+		break;
+	}
 	for (var i = 0; i < items.length; i++) {
 		
 	}
-	return items;
 };
 
 this.getEnemySoliders = function() {
@@ -165,6 +189,21 @@ this.unitToBuild = function(situation) {
 	
 	return type;
 }; // end unitToBuild()
+
+/**
+ * @param pos Position object
+ * @param region coordinates [x1, y1, x2, y2] for checking
+ *
+ * @return boolean
+ */
+this.withinRegion = function(pos, region) {
+	if (pos.x < region[0]) return false;
+	if (pos.x > region[2]) return false;
+	if (pos.y < region[1]) return false;
+	if (pos.y > region[3]) return false;
+	return true;
+}; // end withinRegion()
+
 
 } // end if functionDefined
 

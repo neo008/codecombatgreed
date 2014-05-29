@@ -33,6 +33,11 @@ describe("Support functions", function() {
     var enemySolider = base.getEnemySoliders(eneimes);
     expect(enemySolider).not.toContain({'type':'peon'});
   });
+  
+  it("should valid withinRegion", function() {
+	expect(base.withinRegion(new Position(0, 0), base.MAP_REGIONS[0])).toBe(true);
+	expect(base.withinRegion(new Position(base.MAP_WIDTH, base.MAP_HEIGHT), base.MAP_REGIONS[0])).toBe(false);
+  });
 });
 
 describe("Runner flow", function() {
@@ -76,11 +81,15 @@ describe("Cluster items", function() {
 	beforeEach(function() {
 		base = new Base();
 		base.run(); 
+		base.spawnItems(100);
 	});	
 	
 	xit ("should throw on bad parameters", function() {
 		// it doesn't work 
 		expect(base.clusterItems([], 0)).toThrow();
+	});
+	
+	it ("should only contains items in middle when only 1 region", function() {
 	});
 });
 
