@@ -79,9 +79,8 @@ describe("Cluster items", function() {
 	});	
 	
 	xit ("should throw on bad parameters", function() {
-		var bar = function() { a + 1 };
-		expect(bar).toThrow();
-//		base.clusterItems([], 0);
+		// it doesn't work 
+		expect(base.clusterItems([], 0)).toThrow();
 	});
 });
 
