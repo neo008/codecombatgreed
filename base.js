@@ -22,6 +22,10 @@ Base.prototype.build = function() {
 	return false;
 };
 
+Base.prototype.commmand = function(target, cmdString, args) {
+	return false;
+};
+
 Base.prototype.dump = function(){
 	console.log('testing');
 };

@@ -104,6 +104,31 @@ describe("Runner flow", function() {
 	});
 });
 
+
+describe("Divide items", function() {
+	var base;
+	var regions;
+	
+	beforeEach(function() {
+		base = new Base();
+		base.run(); 
+		base.items = [
+			new Item().setPosition(0, 0),
+			new Item().setPosition(base.MAP_WIDTH13, 0),
+			new Item().setPosition(base.MAP_WIDTH23, 0),
+			new Item().setPosition(0, this.MAP_HEIGHT13),
+			new Item().setPosition(base.MAP_WIDTH13, this.MAP_HEIGHT13),
+			new Item().setPosition(base.MAP_WIDTH23, this.MAP_HEIGHT13),
+			new Item().setPosition(0, this.MAP_HEIGHT23),
+			new Item().setPosition(base.MAP_WIDTH13, this.MAP_HEIGHT23),
+			new Item().setPosition(base.MAP_WIDTH23, this.MAP_HEIGHT23),
+			];
+	});
+	
+	it ("should move peasant to center when there is only 1 peasant", function() {
+	});
+});
+
 describe("Divide items", function() {
 	var base;
 	var regions;
