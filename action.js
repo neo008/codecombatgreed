@@ -29,7 +29,7 @@ if (this.functionDeclared === undefined) {
 
 	// functions
 	this.functionDeclared = true;
-	this.divideItems = function(items, regions) {};
+	this.divideItemsBy9 = function(items, regions) {};
 	this.getEnemySoliders = function() {};
 	this.itemBelongsToRegion = function(item, region) {};
 	this.movePeasants = function() {};
