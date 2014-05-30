@@ -67,7 +67,7 @@ if (this.functionDefined === undefined) {
 this.divideItemsBy9 = function(items) {
 	var regions = [[], [], [],[], [], [],[], [], [],];
 	for (var i = 0; i < items.length; i++) {
-		regions[this.positionToRegionBy9(items[i])].push(items[i]);
+		regions[this.positionToRegionBy9(items[i].pos)].push(items[i]);
 	}
 	return regions;
 }; // end divideItemsBy9
@@ -126,6 +126,8 @@ this.movePeasants = function() {
  * @return int region # it belongs to, unknown result if it is outside of the map
  */
 this.positionToRegionBy9 = function(pos) {
+	if (!(pos instanceof Position)) throw "should provide Position";
+	
 	var region = 0;
 	if (pos.x >= this.MAP_WIDTH23) region++;
 	if (pos.x >= this.MAP_WIDTH13) region++;
