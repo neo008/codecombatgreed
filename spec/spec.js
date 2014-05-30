@@ -95,15 +95,19 @@ describe("Runner flow", function() {
 
 describe("Divide items", function() {
 	var base;
+	var regions;
 	
 	beforeEach(function() {
 		base = new Base();
 		base.run(); 
 		base.spawnItems(100);
+		// setup boundary items into every regions
+//		base.items.push()
+		regions = base.divideItemsBy9(base.items);
 	});	
 	
-	it ("should only contains items in middle when only 1 region", function() {
-		expect(base.divideItems(base.items, 1)).toBe(true);
+	it ("should divide items into 9 regions", function() {
+		expect(regions.length).toBe(9);
 	});
 });
 
