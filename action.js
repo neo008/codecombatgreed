@@ -58,7 +58,7 @@ if (this.situation === undefined) {
 this.situationUpdate(this.situation);
 
 // peasants move independ to situation and military units
-this.movePeasants();
+this.movePeasants(this.getItems());
 
 this.unitToBuild(this.situation);
 

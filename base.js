@@ -18,6 +18,10 @@ function Base() {
 	}
 };
 
+Base.prototype.build = function() {
+	return false;
+};
+
 Base.prototype.dump = function(){
 	console.log('testing');
 };
@@ -28,6 +32,10 @@ Base.prototype.getByType = function(type) {
 
 Base.prototype.getEnemies = function() {
 	return this.enemies;
+};
+
+Base.prototype.getItems = function() {
+	return this.items;
 };
 
 Base.prototype.getNearest = function() {
@@ -41,10 +49,6 @@ Base.prototype.now = function() {
 Base.prototype.say = function(msg) {
 	console.log('say: ' + msg);
 }
-
-Base.prototype.build = function() {
-	return false;
-};
 
 Base.prototype.spawnItems = function(num) {
 	for (var i = 0; i < num; i++) {
