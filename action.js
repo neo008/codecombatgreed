@@ -26,13 +26,20 @@ if (this.functionDeclared === undefined) {
 		[this.MAP_WIDTH13, this.MAP_HEIGHT23, this.MAP_WIDTH23, this.MAP_HEIGHT],
 		[this.MAP_WIDTH23, this.MAP_HEIGHT23, this.MAP_WIDTH, this.MAP_HEIGHT],
 	];
+	
+	// two-dimension array. 1st dimension is number of peasant, 
+	// the 2nd dimension is which region the peasont should go
+	this.PEASANT_REGIONS = [
+		[],
+		[4],
+	];
 
 	// functions
 	this.functionDeclared = true;
 	this.divideItemsBy9 = function(items, regions) {};
 	this.getEnemySoliders = function() {};
 	this.itemBelongsToRegionBy9 = function(item, region) {};
-	this.movePeasants = function() {};
+	this.movePeasants = function(allItems) {};
 	this.positionToRegionBy9 = function(pos) {};
 	this.situationSetup = function() {};
 	this.situationUpdate = function() {};
