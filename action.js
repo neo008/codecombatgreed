@@ -33,6 +33,7 @@ if (this.functionDeclared === undefined) {
 	this.getEnemySoliders = function() {};
 	this.itemBelongsToRegion = function(item, region) {};
 	this.movePeasants = function() {};
+	this.positionToRegion = function(pos) {};
 	this.situationSetup = function() {};
 	this.situationUpdate = function() {};
 	this.unitToBuild = function(situation) {};
@@ -117,6 +118,20 @@ this.movePeasants = function() {
 		}
 	} // for
 }; // end movePeasants()
+
+/**
+ * A helper function to return position's region # with best speed
+ *
+ * @return int region # it belongs to, unknown result if it is outside of the map
+ */
+this.positionToRegion = function(pos) {
+	var region = 0;
+	if (pos.x >= this.MAP_WIDTH23) region++;
+	if (pos.x >= this.MAP_WIDTH13) region++;
+	if (pos.y >= this.MAP_HEIGHT13) region+=3;
+	if (pos.y >= this.MAP_HEIGHT23) region+=3;
+	return region;
+} // end itemToRegion(pos)
 
 /**
  * @return object with situation

@@ -51,7 +51,18 @@ describe("Support functions", function() {
 	expect(base.withinRegion(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[2])).toBe(true);
 	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[6])).toBe(true);
   });
- 
+  
+  it("should valid itemToRegion", function() {
+	// top-left
+	expect(base.positionToRegion(new Position(0, 0))).toBe(0);
+	
+	// boundary cases
+	expect(base.positionToRegion(new Position(base.MAP_WIDTH13, 0))).toBe(1);
+	expect(base.positionToRegion(new Position(0, base.MAP_HEIGHT13))).toBe(3);
+	expect(base.positionToRegion(new Position(base.MAP_WIDTH23, 0))).toBe(2);
+	expect(base.positionToRegion(new Position(0, base.MAP_HEIGHT23))).toBe(6);
+  });
+  
   it("should able to identify item for region", function() {
 	// top-left
 	expect(base.itemBelongsToRegion(new Item().setPosition(0,0), 0)).toBe(true);
