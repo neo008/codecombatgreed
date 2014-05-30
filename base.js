@@ -75,19 +75,27 @@ function Item() {
 	this.pos = new Position();
 }
 
+Item.prototype.setPosition = function(x, y) {
+	this.pos.set(x, y);
+	return this;
+}
+
 function Position() {
 	this.x = 0;
 	this.y = 0;
+	return this;
 }
 
 function Position(x, y) {
 	this.x = x;
 	this.y = y;
+	return this;
 }
 
 Position.prototype.set = function(x, y) {
 	this.x = x;
 	this.y = y;
+	return this;
 }
 
 Position.prototype.distance = function(pos) {

@@ -54,9 +54,7 @@ describe("Support functions", function() {
  
   it("should able to identify item for region", function() {
 	// top-left
-	var item = new Item();
-	item.pos.set(0, 0);
-	expect(base.itemBelongsToRegion(item, 0)).toBe(true);
+	expect(base.itemBelongsToRegion(new Item().setPosition(0,0), 0)).toBe(true);
   });
 });
 
