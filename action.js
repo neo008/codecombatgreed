@@ -31,13 +31,13 @@ if (this.functionDeclared === undefined) {
 	this.functionDeclared = true;
 	this.divideItemsBy9 = function(items, regions) {};
 	this.getEnemySoliders = function() {};
-	this.itemBelongsToRegion = function(item, region) {};
+	this.itemBelongsToRegionBy9 = function(item, region) {};
 	this.movePeasants = function() {};
-	this.positionToRegion = function(pos) {};
+	this.positionToRegionBy9 = function(pos) {};
 	this.situationSetup = function() {};
 	this.situationUpdate = function() {};
 	this.unitToBuild = function(situation) {};
-	this.withinRegion = function(pos, inRegion, regions) {};
+	this.withinRegionBy9 = function(pos, inRegion, regions) {};
 }
 
 var units = ['soldier', 'knight', 'librarian', 'griffin-rider', 'captain'];
@@ -93,9 +93,9 @@ this.getEnemySoliders = function() {
  *
  * @return boolean
  */
-this.itemBelongsToRegion = function(item, region) {
-	return this.withinRegion(item.pos, this.MAP_REGIONS[region]);
-} // end itemBelongsToRegion(item, region)
+this.itemBelongsToRegionBy9 = function(item, region) {
+	return this.withinRegionBy9(item.pos, this.MAP_REGIONS[region]);
+} // end itemBelongsToRegionBy9(item, region)
 
 this.movePeasants = function() {
 	// fair distrubion - segementize items into 9 square. peasants get nearest item base on its square
@@ -124,14 +124,14 @@ this.movePeasants = function() {
  *
  * @return int region # it belongs to, unknown result if it is outside of the map
  */
-this.positionToRegion = function(pos) {
+this.positionToRegionBy9 = function(pos) {
 	var region = 0;
 	if (pos.x >= this.MAP_WIDTH23) region++;
 	if (pos.x >= this.MAP_WIDTH13) region++;
 	if (pos.y >= this.MAP_HEIGHT13) region+=3;
 	if (pos.y >= this.MAP_HEIGHT23) region+=3;
 	return region;
-} // end itemToRegion(pos)
+} // end itemToRegionBy9(pos)
 
 /**
  * @return object with situation
@@ -202,13 +202,13 @@ this.unitToBuild = function(situation) {
  *
  * @return boolean
  */
-this.withinRegion = function(pos, region) {
+this.withinRegionBy9 = function(pos, region) {
 	if (pos.x < region[0]) return false;
 	if (pos.x >= region[2]) return false;
 	if (pos.y < region[1]) return false;
 	if (pos.y >= region[3]) return false;
 	return true;
-}; // end withinRegion()
+}; // end withinRegionBy9()
 
 
 } // end if functionDefined

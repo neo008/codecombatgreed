@@ -34,38 +34,38 @@ describe("Support functions", function() {
     expect(enemySolider).not.toContain({'type':'peon'});
   });
   
-  it("should valid withinRegion", function() {
+  it("should valid withinRegionBy9", function() {
 	// top-left
-	expect(base.withinRegion(new Position(0, 0), base.MAP_REGIONS[0])).toBe(true);
+	expect(base.withinRegionBy9(new Position(0, 0), base.MAP_REGIONS[0])).toBe(true);
 	
 	// bottom-right
-	expect(base.withinRegion(new Position(base.MAP_WIDTH, base.MAP_HEIGHT), base.MAP_REGIONS[0])).toBe(false);
+	expect(base.withinRegionBy9(new Position(base.MAP_WIDTH, base.MAP_HEIGHT), base.MAP_REGIONS[0])).toBe(false);
 	
 	// boundary cases
-	expect(base.withinRegion(new Position(base.MAP_WIDTH13, 0), base.MAP_REGIONS[0])).toBe(false);
-	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT13), base.MAP_REGIONS[0])).toBe(false);
-	expect(base.withinRegion(new Position(base.MAP_WIDTH13, 0), base.MAP_REGIONS[1])).toBe(true);
-	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT13), base.MAP_REGIONS[3])).toBe(true);
-	expect(base.withinRegion(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[1])).toBe(false);
-	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[3])).toBe(false);
-	expect(base.withinRegion(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[2])).toBe(true);
-	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[6])).toBe(true);
+	expect(base.withinRegionBy9(new Position(base.MAP_WIDTH13, 0), base.MAP_REGIONS[0])).toBe(false);
+	expect(base.withinRegionBy9(new Position(0, base.MAP_HEIGHT13), base.MAP_REGIONS[0])).toBe(false);
+	expect(base.withinRegionBy9(new Position(base.MAP_WIDTH13, 0), base.MAP_REGIONS[1])).toBe(true);
+	expect(base.withinRegionBy9(new Position(0, base.MAP_HEIGHT13), base.MAP_REGIONS[3])).toBe(true);
+	expect(base.withinRegionBy9(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[1])).toBe(false);
+	expect(base.withinRegionBy9(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[3])).toBe(false);
+	expect(base.withinRegionBy9(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[2])).toBe(true);
+	expect(base.withinRegionBy9(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[6])).toBe(true);
   });
   
-  it("should valid itemToRegion", function() {
+  it("should valid itemToRegionBy9", function() {
 	// top-left
-	expect(base.positionToRegion(new Position(0, 0))).toBe(0);
+	expect(base.positionToRegionBy9(new Position(0, 0))).toBe(0);
 	
 	// boundary cases
-	expect(base.positionToRegion(new Position(base.MAP_WIDTH13, 0))).toBe(1);
-	expect(base.positionToRegion(new Position(0, base.MAP_HEIGHT13))).toBe(3);
-	expect(base.positionToRegion(new Position(base.MAP_WIDTH23, 0))).toBe(2);
-	expect(base.positionToRegion(new Position(0, base.MAP_HEIGHT23))).toBe(6);
+	expect(base.positionToRegionBy9(new Position(base.MAP_WIDTH13, 0))).toBe(1);
+	expect(base.positionToRegionBy9(new Position(0, base.MAP_HEIGHT13))).toBe(3);
+	expect(base.positionToRegionBy9(new Position(base.MAP_WIDTH23, 0))).toBe(2);
+	expect(base.positionToRegionBy9(new Position(0, base.MAP_HEIGHT23))).toBe(6);
   });
   
   it("should able to identify item for region", function() {
 	// top-left
-	expect(base.itemBelongsToRegion(new Item().setPosition(0,0), 0)).toBe(true);
+	expect(base.itemBelongsToRegionBy9(new Item().setPosition(0,0), 0)).toBe(true);
   });
 });
 
