@@ -124,9 +124,8 @@ this.movePeasants = function(allItems) {
 			var item = peasant.getNearest(items);
 			if (item) {
 				this.command(peasant, 'move', item.pos);
-			1	}
+			}
 		}
-		
 	} // for
 }; // end movePeasants()
 
