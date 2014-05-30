@@ -105,25 +105,28 @@ this.itemBelongsToRegionBy9 = function(item, region) {
 	return this.withinRegionBy9(item.pos, this.MAP_REGIONS[region]);
 } // end itemBelongsToRegionBy9(item, region)
 
-this.movePeasants = function() {
+this.movePeasants = function(allItems) {
 	// fair distrubion - segementize items into 9 square. peasants get nearest item base on its square
+	var itemsByRegion = this.divideItemsBy9(allItems);
 
 	var peasants = this.getByType('peasant');
 	for (var peasantIndex = 0; peasantIndex < peasants.length; peasantIndex++) {
 		var peasant = peasants[peasantIndex];
-		var items = this.getItems();
+		
 		// filter out items that are close to other peasants
 		// or
 		// increase vector of item by other peasant's vector
 		
+		var items = itemsByRegion[this.PEASANT_REGIONS[peasants.length][peasantIndex]];
 		
 		// decide whether he should go for higher value item
 		if (peasant !== undefined) {
 			var item = peasant.getNearest(items);
 			if (item) {
 				this.command(peasant, 'move', item.pos);
-			}
+			1	}
 		}
+		
 	} // for
 }; // end movePeasants()
 
