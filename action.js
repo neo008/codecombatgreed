@@ -29,8 +29,9 @@ if (this.functionDeclared === undefined) {
 
 	// functions
 	this.functionDeclared = true;
-	this.clusterItems = function(items, regions) {};
+	this.divideItems = function(items, regions) {};
 	this.getEnemySoliders = function() {};
+	this.itemBelongsToRegion = function(item, region) {};
 	this.movePeasants = function() {};
 	this.situationSetup = function() {};
 	this.situationUpdate = function() {};
@@ -57,28 +58,18 @@ if (this.functionDefined === undefined) {
 	this.functionDefined = true;
 
 /**
- * try to 'cluster' items into provided regions
+ * try to divide items into 9 regions
  * 
- * @param regions min 1, max 6
  *
  * @return an array of array of items
  */
-this.clusterItems = function(items, regions) {
-	if (regions < 1) throw "regions should not smaller than 1";
-	if (regions > 6) throw "regions should not more than 6";
-	
-	switch (regions) {
-		case 1:
-			return [items.filter(function() {
-				
-				return true;
-			})];
-		break;
-	}
+this.divideItemsBy9 = function(items) {
+	var regions = [];
 	for (var i = 0; i < items.length; i++) {
 		
 	}
-};
+	return regions;
+}; // end divideItemsBy9
 
 this.getEnemySoliders = function() {
     // this includes peon, not what we really want
@@ -94,18 +85,18 @@ this.getEnemySoliders = function() {
     return soliders;
 }; // end getEnemySoliders()
 
+/**
+ * A helper function to check whether item is belongs to region
+ *
+ * @param item Item object
+ *
+ * @return boolean
+ */
+this.itemBelongsToRegion = function(item, region) {
+	return this.withinRegion(item.pos, this.MAP_REGIONS[region]);
+} // end itemBelongsToRegion(item, region)
+
 this.movePeasants = function() {
-	// locations of predicted peasont
-	var peasontBestLocations;
-	switch (this.getByType("peasant").length) {
-		case 1: peasontBestLocations = [[45, 35]]; break;
-		case 2: peasontBestLocations = [[10,60], [80,10]]; break;
-		case 3: peasontBestLocations = [[10,60], [80,10], [45, 35]]; break;
-		case 4: peasontBestLocations = [[10,60], [80,10], [55, 45], [35, 30]]; break;
-		case 5: peasontBestLocations = [[10,60], [80,10], [60, 50], [45, 35], [30,25]]; break;     
-		case 6: peasontBestLocations = [[10,60], [80,10], [55, 60], [75, 40], [45,15], [15,35]]; break;
-	} // switch
-	
 	// fair distrubion - segementize items into 9 square. peasants get nearest item base on its square
 
 	var peasants = this.getByType('peasant');

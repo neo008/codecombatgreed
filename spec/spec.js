@@ -51,6 +51,13 @@ describe("Support functions", function() {
 	expect(base.withinRegion(new Position(base.MAP_WIDTH23, 0), base.MAP_REGIONS[2])).toBe(true);
 	expect(base.withinRegion(new Position(0, base.MAP_HEIGHT23), base.MAP_REGIONS[6])).toBe(true);
   });
+ 
+  it("should able to identify item for region", function() {
+	// top-left
+	var item = new Item();
+	item.pos.set(0, 0);
+	expect(base.itemBelongsToRegion(item, 0)).toBe(true);
+  });
 });
 
 describe("Runner flow", function() {
@@ -88,7 +95,7 @@ describe("Runner flow", function() {
 	});
 });
 
-describe("Cluster items", function() {
+describe("Divide items", function() {
 	var base;
 	
 	beforeEach(function() {
@@ -97,12 +104,8 @@ describe("Cluster items", function() {
 		base.spawnItems(100);
 	});	
 	
-	xit ("should throw on bad parameters", function() {
-		// it doesn't work 
-		expect(base.clusterItems([], 0)).toThrow();
-	});
-	
 	it ("should only contains items in middle when only 1 region", function() {
+		expect(base.divideItems(base.items, 1)).toBe(true);
 	});
 });
 
