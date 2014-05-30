@@ -112,13 +112,21 @@ describe("Divide items", function() {
 		base = new Base();
 		base.run(); 
 		base.spawnItems(100);
-		// setup boundary items into every regions
-//		base.items.push()
+		// TODO setup boundary items into every regions
+		// TODO base.items.push()
 		regions = base.divideItemsBy9(base.items);
 	});	
 	
 	it ("should divide items into 9 regions", function() {
 		expect(regions.length).toBe(9);
+	});
+
+	it ("should valid items in regions ", function() {
+		for (var r = 0; r < regions.length; r++) {
+			for (var i = 0; i < regions[r].length; i++) {
+				expect(base.withinRegionBy9(regions[r][i].pos, base.MAP_REGIONS[r])).toBe(true);
+			}
+		}
 	});
 });
 

@@ -65,9 +65,9 @@ if (this.functionDefined === undefined) {
  * @return an array of array of items
  */
 this.divideItemsBy9 = function(items) {
-	var regions = [];
+	var regions = [[], [], [],[], [], [],[], [], [],];
 	for (var i = 0; i < items.length; i++) {
-		
+		regions[this.positionToRegionBy9(items[i])].push(items[i]);
 	}
 	return regions;
 }; // end divideItemsBy9
@@ -90,6 +90,7 @@ this.getEnemySoliders = function() {
  * A helper function to check whether item is belongs to region
  *
  * @param item Item object
+ * @param int index of region
  *
  * @return boolean
  */
@@ -131,7 +132,7 @@ this.positionToRegionBy9 = function(pos) {
 	if (pos.y >= this.MAP_HEIGHT13) region+=3;
 	if (pos.y >= this.MAP_HEIGHT23) region+=3;
 	return region;
-} // end itemToRegionBy9(pos)
+} // end positionToRegionBy9(pos)
 
 /**
  * @return object with situation
