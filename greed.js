@@ -9,7 +9,7 @@ if (this.functionDeclared === undefined) {
 	this.TIME_LATE_GAME = 120;
 	this.MAP_WIDTH = 85;
 	this.MAP_HEIGHT = 70;
-	this.MAP_CENTER = new Position(Math.floor(this.MAP_WIDTH/2), Math.floor(this.MAP_HEIGHT/2));
+	this.MAP_CENTER = { x:Math.floor(this.MAP_WIDTH/2), y:Math.floor(this.MAP_HEIGHT/2) };
 
 	// functions
 	this.functionDeclared = true;
