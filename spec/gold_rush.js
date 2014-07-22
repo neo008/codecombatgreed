@@ -1,15 +1,20 @@
 describe("Base", function() {
-  var base;
+  var player;
   
   beforeEach(function() {
-	base = new Base();
-	// init run
-	base.run();
+	player = new Player();
+	player.base = new Base();
+	player.run();
   });
   
   it("should have map center", function() {
-	  expect(base.MAP_CENTER.x).toBe(42);
-	  expect(base.MAP_CENTER.y).toBe(35);
+	  expect(player.base.MAP_CENTER.x).toBe(42);
+	  expect(player.base.MAP_CENTER.y).toBe(35);
+  });
+  
+  it("should spwan items", function() {
+    player.base.spawnItems(20);
+    expect(player.getItems().length).toBe(20);    
   });
   
 });
