@@ -5,7 +5,7 @@ function Buildable() {
 };
 
 function Base() {
-	this.pos = new Position();
+	this.pos = { x:0, y:0 };
 	this.gold = 0;
 	this._now = 1;
 	// Items
@@ -54,6 +54,7 @@ Base.prototype.say = function(msg) {
 	console.log('say: ' + msg);
 }
 
+
 Base.prototype.spawnItems = function(num) {
 	for (var i = 0; i < num; i++) {
 		var item = new Item();
@@ -80,33 +81,6 @@ Base.prototype.spawnItems = function(num) {
 
 function Item() {
 	this.value = 0;
-	this.pos = new Position();
+	this.pos = { x:0, y:0 };
 }
-
-Item.prototype.setPosition = function(x, y) {
-	this.pos.set(x, y);
-	return this;
-}
-
-function Position() {
-	this.x = 0;
-	this.y = 0;
-	return this;
-}
-
-function Position(x, y) {
-	this.x = x;
-	this.y = y;
-	return this;
-}
-
-Position.prototype.set = function(x, y) {
-	this.x = x;
-	this.y = y;
-	return this;
-}
-
-Position.prototype.distance = function(pos) {
-	return 100;
-};
 

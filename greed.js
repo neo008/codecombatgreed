@@ -13,7 +13,7 @@ if (this.functionDeclared === undefined) {
 	this.MAP_WIDTH23 = Math.floor(this.MAP_WIDTH * 2 / 3);
 	this.MAP_HEIGHT13 = Math.floor(this.MAP_HEIGHT / 3);
 	this.MAP_HEIGHT23 = Math.floor(this.MAP_HEIGHT * 2 / 3);
-	this.MAP_CENTER = new Position(Math.floor(this.MAP_WIDTH/2), Math.floor(this.MAP_HEIGHT/2));
+	this.MAP_CENTER = { x:Math.floor(this.MAP_WIDTH/2), y:Math.floor(this.MAP_HEIGHT/2) };
 	// [x1, y1, x2, y2]
 	this.MAP_REGIONS = [
 		[0, 0, this.MAP_WIDTH13, this.MAP_HEIGHT13],
@@ -128,22 +128,6 @@ this.movePeasants = function(allItems) {
 		}
 	} // for
 }; // end movePeasants()
-
-/**
- * A helper function to return position's region # with best speed
- *
- * @return int region # it belongs to, unknown result if it is outside of the map
- */
-this.positionToRegionBy9 = function(pos) {
-	if (!(pos instanceof Position)) throw "should provide Position";
-	
-	var region = 0;
-	if (pos.x >= this.MAP_WIDTH23) region++;
-	if (pos.x >= this.MAP_WIDTH13) region++;
-	if (pos.y >= this.MAP_HEIGHT13) region+=3;
-	if (pos.y >= this.MAP_HEIGHT23) region+=3;
-	return region;
-} // end positionToRegionBy9(pos)
 
 /**
  * @return object with situation
