@@ -58,22 +58,18 @@ if (enemies.length === 0) return;  // Chill if all enemies are dead.
 var enemy = this.getNearest(enemies);
 var friend = this.getNearest(friends);
 
-var closeEnemies = 0;
-for (var i = 0; i < enemies.length; i++) {
-    if (this.distance(enemies[i]) < 3) {
-        closeEnemies++;
-    }
+// evade from fight. support the trops with haste
+if (this.distance(enemy) < 25) {
+    this.move({x: this.pos.x - 1, y: this.pos.y, z: this.pos.z}); 
+} else {
+    this.attack(enemy);
 }
-var defend = (closeEnemies > 5);
-(defend) ? this.shield() : this.attack(enemy);
-
 // Which one do you do at any given time? Only the last called action happens.
-//if(!this.getCooldown('warcry')) this.warcry();
+if(!this.getCooldown('warcry')) this.warcry();
 //if(!this.getCooldown('terrify')) this.terrify();
 //if(!this.getCooldown('power-up') && !this.hasEffect('power-up')) this.powerUp();
 //this.shield();
-//this.attack(enemy);
-
+        
 // You can store state on this across frames:
 //this.lastHealth = this.health;
 }; end Hero.prototype.run
